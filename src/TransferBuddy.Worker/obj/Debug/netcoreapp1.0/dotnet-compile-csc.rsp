@@ -11,6 +11,8 @@
 "/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Worker/obj/Debug/netcoreapp1.0/dotnet-compile.assemblyinfo.cs"
 -out:"/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Worker/bin/Debug/netcoreapp1.0/TransferBuddy.Worker.dll"
 -r:"/Users/MIGA/.nuget/packages/Microsoft.CSharp/4.0.1/ref/netstandard1.0/Microsoft.CSharp.dll"
+-r:"/Users/MIGA/.nuget/packages/Microsoft.Extensions.DependencyInjection/1.0.0/lib/netstandard1.1/Microsoft.Extensions.DependencyInjection.dll"
+-r:"/Users/MIGA/.nuget/packages/Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0/lib/netstandard1.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll"
 -r:"/Users/MIGA/.nuget/packages/Microsoft.VisualBasic/10.0.1/ref/netstandard1.1/Microsoft.VisualBasic.dll"
 -r:"/Users/MIGA/.nuget/packages/Microsoft.Win32.Primitives/4.0.1/ref/netstandard1.3/Microsoft.Win32.Primitives.dll"
 -r:"/Users/MIGA/.nuget/packages/MongoDB.Bson/2.4.0-beta1/lib/netstandard1.5/MongoDB.Bson.dll"
@@ -94,6 +96,8 @@
 -r:"/Users/MIGA/.nuget/packages/System.Threading.Timer/4.0.1/ref/netstandard1.2/System.Threading.Timer.dll"
 -r:"/Users/MIGA/.nuget/packages/System.Xml.ReaderWriter/4.0.11/ref/netstandard1.3/System.Xml.ReaderWriter.dll"
 -r:"/Users/MIGA/.nuget/packages/System.Xml.XDocument/4.0.11/ref/netstandard1.3/System.Xml.XDocument.dll"
+-r:"/Users/MIGA/heroku/transfer-buddy/src/Messenger.Client/bin/Debug/netcoreapp1.0/Messenger.Client.dll"
+-r:"/Users/MIGA/heroku/transfer-buddy/src/Messenger.Client.Extensions/bin/Debug/netcoreapp1.0/Messenger.Client.Extensions.dll"
 -r:"/Users/MIGA/heroku/transfer-buddy/src/TransferWise.Client/bin/Debug/netcoreapp1.0/TransferWise.Client.dll"
 -resource:"/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Worker/obj/Debug/netcoreapp1.0/TransferBuddy.Workerdotnet-compile.deps.json",TransferBuddy.Worker.deps.json
 "/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Worker/Program.cs"

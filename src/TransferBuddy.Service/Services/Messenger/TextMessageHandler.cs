@@ -52,16 +52,6 @@ namespace TransferBuddy.Service.Services.Messenger
             }
 
             var conversationContext = await this.Processor.RedisService.FindOrCreateAsync(sender.Id, new ConversationContext { Id = Guid.NewGuid().ToString() });
-            // var witConversation = new WitConversation<ConversationContext>(
-            //     witAiToken, 
-            //     conversationContext.Id, 
-            //     conversationContext, 
-            //     this.DoMerge, 
-            //     this.DoSay, 
-            //     this.DoAction, 
-            //     this.DoStop);
-
-            // var result = await witConversation.SendMessageAsync(message.Text);
             
             var witClient = new WitAi.WitClient(witAiToken);
             var response = await witClient.GetMessageAsync(message.Text);
@@ -71,7 +61,6 @@ namespace TransferBuddy.Service.Services.Messenger
                 if (response.Entities.Count == 0)
                 {
                     var buttons = new List<MessengerButtonBase>();
-                    buttons.Add(new MessengerLinkButton("help web", "http://rando-bot.com"));
                     buttons.Add(new MessengerChatButton("help", "help"));
 
                     await this.SendTextWithButtonsAsync(sender, "I didn't quite get that, I'm a still a bit silly ATM :/" , buttons);

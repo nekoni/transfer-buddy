@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.0/",
-    "signature": "90c25b0aa667106e9736d2a7fc49a4f3c1952df7"
+    "signature": "1863a3cf69880217c3e8ab927431204dac619f7a"
   },
   "compilationOptions": {
     "defines": [
@@ -20,7 +20,9 @@
           "Microsoft.NETCore.App": "1.0.0",
           "MongoDB.Driver": "2.4.0-beta1",
           "Newtonsoft.Json": "9.0.1",
-          "TransferWise.Client": "1.0.0"
+          "TransferWise.Client": "1.0.0",
+          "Messenger.Client": "0.2.5",
+          "Messenger.Client.Extensions": "0.2.5"
         },
         "compile": {
           "TransferBuddy.Worker.dll": {}
@@ -106,6 +108,33 @@
         },
         "compile": {
           "ref/netstandard1.0/Microsoft.CSharp.dll": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
+          "System.Collections": "4.0.11",
+          "System.Collections.Concurrent": "4.0.12",
+          "System.Runtime.Extensions": "4.1.0",
+          "System.Threading": "4.0.11",
+          "System.Threading.Tasks": "4.0.11"
+        },
+        "compile": {
+          "lib/netstandard1.1/Microsoft.Extensions.DependencyInjection.dll": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0": {
+        "dependencies": {
+          "System.ComponentModel": "4.0.1",
+          "System.Diagnostics.Debug": "4.0.11",
+          "System.Globalization": "4.0.11",
+          "System.Linq": "4.1.0",
+          "System.Linq.Expressions": "4.1.0",
+          "System.Reflection": "4.1.0",
+          "System.Resources.ResourceManager": "4.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
         }
       },
       "Microsoft.NETCore.App/1.0.0": {
@@ -1651,6 +1680,25 @@
           "System.Xml.XPath": "4.0.1"
         }
       },
+      "Messenger.Client/0.2.5": {
+        "dependencies": {
+          "Microsoft.NETCore.App": "1.0.0",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "compile": {
+          "Messenger.Client.dll": {}
+        }
+      },
+      "Messenger.Client.Extensions/0.2.5": {
+        "dependencies": {
+          "Messenger.Client": "0.2.5",
+          "Microsoft.Extensions.DependencyInjection": "1.0.0",
+          "Microsoft.NETCore.App": "1.0.0"
+        },
+        "compile": {
+          "Messenger.Client.Extensions.dll": {}
+        }
+      },
       "TransferWise.Client/1.0.0": {
         "dependencies": {
           "Microsoft.NETCore.App": "1.0.0",
@@ -1667,7 +1715,9 @@
           "Microsoft.NETCore.App": "1.0.0",
           "MongoDB.Driver": "2.4.0-beta1",
           "Newtonsoft.Json": "9.0.1",
-          "TransferWise.Client": "1.0.0"
+          "TransferWise.Client": "1.0.0",
+          "Messenger.Client": "0.2.5",
+          "Messenger.Client.Extensions": "0.2.5"
         },
         "runtime": {
           "TransferBuddy.Worker.dll": {}
@@ -1762,6 +1812,33 @@
         },
         "runtime": {
           "lib/netstandard1.3/Microsoft.CSharp.dll": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
+          "System.Collections": "4.0.11",
+          "System.Collections.Concurrent": "4.0.12",
+          "System.Runtime.Extensions": "4.1.0",
+          "System.Threading": "4.0.11",
+          "System.Threading.Tasks": "4.0.11"
+        },
+        "runtime": {
+          "lib/netstandard1.1/Microsoft.Extensions.DependencyInjection.dll": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0": {
+        "dependencies": {
+          "System.ComponentModel": "4.0.1",
+          "System.Diagnostics.Debug": "4.0.11",
+          "System.Globalization": "4.0.11",
+          "System.Linq": "4.1.0",
+          "System.Linq.Expressions": "4.1.0",
+          "System.Reflection": "4.1.0",
+          "System.Resources.ResourceManager": "4.0.1"
+        },
+        "runtime": {
+          "lib/netstandard1.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
         }
       },
       "Microsoft.NETCore.App/1.0.0": {
@@ -3214,6 +3291,25 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
+      "Messenger.Client/0.2.5": {
+        "dependencies": {
+          "Microsoft.NETCore.App": "1.0.0",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "runtime": {
+          "Messenger.Client.dll": {}
+        }
+      },
+      "Messenger.Client.Extensions/0.2.5": {
+        "dependencies": {
+          "Messenger.Client": "0.2.5",
+          "Microsoft.Extensions.DependencyInjection": "1.0.0",
+          "Microsoft.NETCore.App": "1.0.0"
+        },
+        "runtime": {
+          "Messenger.Client.Extensions.dll": {}
+        }
+      },
       "TransferWise.Client/1.0.0": {
         "dependencies": {
           "Microsoft.NETCore.App": "1.0.0",
@@ -3260,6 +3356,16 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-SwpT71hk9vzALqYKGY/j6UXiETjpjlYyeuQ0QyPNIgDNa1hvCTQ+bZR7tiyVDmK3qQ2/FbJ1D4xaNljFwDK+WA=="
+    },
+    "Microsoft.Extensions.DependencyInjection/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zdtkiZNV6LB8xtpmfyUjP/9N9ZCL/ydQ+0bfjun38fbrk+MDEm9M2yeLzRdq+OIt5xExw/KU04wFaVwJ1bhQPg=="
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+XwaNo3o9RhLQhUnnOBCaukeRi1X9yYc0Fzye9RlErSflKZdw0VgHtn6rvKo0FTionsW0x8QVULhKH+nkqVjQA=="
     },
     "Microsoft.NETCore.App/1.0.0": {
       "type": "package",
@@ -3825,6 +3931,16 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-sRCFd1L7ZBP6AGmvbBONVvJNqtyC8Ize9yr+a2gmUXqaPC9GNQNKYb1Hu+pltVshuN9FvuwlnLue5dqVoGkkqw=="
+    },
+    "Messenger.Client/0.2.5": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Messenger.Client.Extensions/0.2.5": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "TransferWise.Client/1.0.0": {
       "type": "project",

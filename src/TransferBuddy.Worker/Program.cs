@@ -28,11 +28,17 @@ namespace TransferBuddy.Worker
         /// <param name="args">The arguments.</param>
         public static void Main(string[] args)
         {
-            Console.ReadKey();
+            // Console.ReadKey();
+            // Task.Run(async () =>
+            // {
+            //     await InitializeDatabase();
+            // }).Wait();
+
             Task.Run(async () =>
             {
-                await InitializeDatabase();
+                await FixDatabase();
             }).Wait();
+
 
             // Task.Run(async () => 
             // {
@@ -109,6 +115,62 @@ namespace TransferBuddy.Worker
         private static void TriggerAlerts(string source, string target, Models.Rate rate90, Models.Rate rate4, Models.Rate rateRsi)
         {
             // TODO
+        }
+
+        static async Task FixDatabase()
+        {
+            var startDate = DateTime.Now.AddDays(-190);
+            var endDate = DateTime.Now;
+
+            for (int i = 0; i < currencies.Length; i++)
+            {
+                for (int j = 0; j < currencies.Length; j++)
+                {
+                    var source = currencies[i];
+                    var target = currencies[j];
+
+                    if (source == target)
+                    {
+                        continue;
+                    }
+
+                    Console.WriteLine($"{source} {target}");
+                    var rates = (await client.GetRatesAsync(source, target, startDate, endDate)).ToList();
+
+                    var rep90 = new RateRepository("sma90", source, target);
+                    foreach (var rate in PatchRate(GetRate(missingRates, sma90, 0).ToList()))
+                    {
+                        await rep90.Add(rate);
+                    }
+
+                    var rep4 = new RateRepository("sma4", source, target);
+                    foreach (var rate in PatchRate(GetRate(missingRates, sma4, 0).ToList()))
+                    {
+                        await rep4.Add(rate);
+                    }
+
+                    var rep14 = new RateRepository("rsi14", source, target);
+                    foreach (var rate in PatchRate(GetRsi(missingRates, rsi14, 0).ToList())
+                    {
+                        await rep14.Add(rate);
+                    }
+                }
+            }
+        }
+
+        static List<Rate> PatchRate(List<Rate> rates)
+        {
+            var missingDays = 35;
+            var missingRates = new List<Rate>();
+            var missingDate = DateTime.Parse("0116-10-22T00:00:00+0000");
+            for (int d = 0; i < missingDays; i++)
+            {
+                rates[d].Time = missingDate;
+                missingDate.AddDays(1);
+                missingRates.Add(rates[d]);
+            }
+
+            return missingRates;
         }
 
         static async Task InitializeDatabase()

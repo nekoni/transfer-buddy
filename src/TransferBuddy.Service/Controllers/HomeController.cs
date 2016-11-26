@@ -24,5 +24,14 @@ namespace ECB.Service.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// The configure endpoint.
+        /// </summary>
+        /// <returns>A view.</returns>
+        public IActionResult Configure()
+        {
+            return View();
+        }
     }
 }

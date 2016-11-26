@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Messenger.Client.Objects;
 
@@ -31,7 +32,10 @@ namespace TransferBuddy.Service.Services.Messenger
             {
                 await this.SimulateTypingAsync(sender, 1000);
                 
-                await this.SendTextAsync(sender, "send me a nice picture :)");
+                var buttons = new List<MessengerButtonBase>();
+                buttons.Add(new MessengerLinkButton("Configure", "https://transfer-buddy.herokuapp.com/Home/Configure"));
+
+                await this.SendTextWithButtonsAsync(sender, "I didn't quite get that, I'm a still a bit silly ATM :/" , buttons);
 
                 return true;
             }
