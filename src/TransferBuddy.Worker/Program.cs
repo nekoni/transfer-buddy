@@ -28,7 +28,7 @@ namespace TransferBuddy.Worker
         /// <param name="args">The arguments.</param>
         public static void Main(string[] args)
         {
-            // Console.ReadKey();
+             Console.ReadKey();
             // Task.Run(async () =>
             // {
             //     await InitializeDatabase();
@@ -138,19 +138,19 @@ namespace TransferBuddy.Worker
                     var rates = (await client.GetRatesAsync(source, target, startDate, endDate)).ToList();
 
                     var rep90 = new RateRepository("sma90", source, target);
-                    foreach (var rate in PatchRate(GetRate(missingRates, sma90, 0).ToList()))
+                    foreach (var rate in PatchRate(GetRate(rates, sma90, 0).ToList()))
                     {
                         await rep90.Add(rate);
                     }
 
                     var rep4 = new RateRepository("sma4", source, target);
-                    foreach (var rate in PatchRate(GetRate(missingRates, sma4, 0).ToList()))
+                    foreach (var rate in PatchRate(GetRate(rates, sma4, 0).ToList()))
                     {
                         await rep4.Add(rate);
                     }
 
                     var rep14 = new RateRepository("rsi14", source, target);
-                    foreach (var rate in PatchRate(GetRsi(missingRates, rsi14, 0).ToList())
+                    foreach (var rate in PatchRate(GetRsi(rates, rsi14, 0).ToList()))
                     {
                         await rep14.Add(rate);
                     }
@@ -158,16 +158,16 @@ namespace TransferBuddy.Worker
             }
         }
 
-        static List<Rate> PatchRate(List<Rate> rates)
+        static List<Models.Rate> PatchRate(List<Models.Rate> rates)
         {
             var missingDays = 35;
-            var missingRates = new List<Rate>();
+            var missingRates = new List<Models.Rate>();
             var missingDate = DateTime.Parse("0116-10-22T00:00:00+0000");
-            for (int d = 0; i < missingDays; i++)
+            for (int i = 0; i < missingDays; i++)
             {
-                rates[d].Time = missingDate;
+                rates[i].Date = missingDate;
                 missingDate.AddDays(1);
-                missingRates.Add(rates[d]);
+                missingRates.Add(rates[i]);
             }
 
             return missingRates;
