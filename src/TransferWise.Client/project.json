@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "title": "TransferWise API .NET Client",
+  "description": ".NET Client for TransferWise API. GitHub Repository: https://github.com/nekoni/transferwise-core",
+  "authors": [ "Stubborn Snowflakes" ],
+
+  "packOptions": {
+    "projectUrl": "https://github.com/nekoni/transferwise-core",
+    "tags": [ "ecb", "forex" ],
+    "requireLicenseAcceptance": true,
+    "licenseUrl": "http://www.opensource.org/licenses/MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/nekoni/transferwise-core"
+    },
+    "summary": "GitHub Repository: https://github.com/nekoni/transferwise-core"
+  },
+
+  "dependencies": {
+    "Microsoft.NETCore.App": "1.0.0",
+    "Newtonsoft.Json": "9.0.1"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [ "dotnet5.6", "portable-net45+win8+wp8" ]
+    }
+  }
+}

@@ -1,0 +1,512 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RandoBot.Service</name>
+    </assembly>
+    <members>
+        <member name="T:RandoBot.Service.Program">
+            <summary>
+            The program class which bootstrap the applicaiton.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Program.Main(System.String[])">
+            <summary>
+            The main entry point.
+            </summary>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="T:RandoBot.Service.SHA1Util">
+            <summary>
+            Utility to create SHA1 hash from string.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.SHA1Util.SHA1HashStringForUTF8String(System.String)">
+            <summary>
+            Compute hash for string encoded as UTF8
+            </summary>
+            <param name="s">String to be hashed</param>
+            <returns>40-character hex string</returns>
+        </member>
+        <member name="M:RandoBot.Service.SHA1Util.HexStringFromBytes(System.Byte[])">
+            <summary>
+            Convert an array of bytes to a string of hex digits
+            </summary>
+            <param name="bytes">array of bytes</param>
+            <returns>String of hex digits</returns>
+        </member>
+        <member name="T:RandoBot.Service.Startup">
+            <summary>
+            The startup class.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Startup.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            Initialize a new instance of the <see cref="T:RandoBot.Service.Startup"/> class
+            </summary>
+            <param name="env">The environment.</param>
+        </member>
+        <member name="P:RandoBot.Service.Startup.Configuration">
+            <summary>
+            The configuration.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configures the services.
+            </summary>
+            <param name="services">The services to configure.</param>
+        </member>
+        <member name="M:RandoBot.Service.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Configures the application.
+            </summary>
+            <param name="app">The application to configure.</param>
+            <param name="env">The environment to configure.</param>
+            <param name="loggerFactory">The log factory to configure.</param>
+        </member>
+        <member name="T:RandoBot.Service.HomeController">
+            <summary>
+            The home controller.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.HomeController.Index">
+            <summary>
+            The index endpoint.
+            </summary>
+            <returns>A view.</returns>
+        </member>
+        <member name="M:RandoBot.Service.HomeController.PrivacyPolicy">
+            <summary>
+            The contact endpoint.
+            </summary>
+            <returns>A view.</returns>
+        </member>
+        <member name="M:RandoBot.Service.HomeController.Error">
+            <summary>
+            The error endpoint.
+            </summary>
+            <returns>A view.</returns>
+        </member>
+        <member name="T:RandoBot.Service.Controllers.FacebookController">
+            <summary>
+            The FacebookController class.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Controllers.FacebookController.#ctor(Microsoft.Extensions.Logging.ILogger{RandoBot.Service.Controllers.FacebookController},RandoBot.Service.Services.MessageProcessorService)">
+            <summary>
+            Initializes a new instance of the FacebookController class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="processor">The message processor.</param>
+        </member>
+        <member name="M:RandoBot.Service.Controllers.FacebookController.Validate">
+            <summary>
+            Validates the sender.
+            </summary>
+            <returns>The response.</returns>
+        </member>
+        <member name="M:RandoBot.Service.Controllers.FacebookController.HandleMessage(Messenger.Client.Objects.MessengerObject)">
+            <summary>
+            Handles the message.
+            </summary>
+            <param name="obj">The message object.</param>
+            <returns>The response.</returns>
+        </member>
+        <member name="T:RandoBot.Service.Models.Entity">
+            <summary>
+            Base class for entities.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Models.Entity.Id">
+            <summary>
+            The object identifier.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Models.Entity.UserId">
+            <summary>
+            The user identifier.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Models.Entity.Created">
+            <summary>
+            The created datetime.
+            </summary>
+        </member>
+        <member name="T:RandoBot.Service.Models.Picture">
+            <summary>
+            The picture class.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Models.Picture.PublicId">
+            <summary>
+            The public identifier.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Models.Picture.Delete">
+            <summary>
+            Marks this record to be deleted.
+            </summary>
+        </member>
+        <member name="T:RandoBot.Service.Models.User">
+            <summary>
+            The user class.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Models.User.FirstName">
+            <summary>
+            The first name.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Models.User.LastActivity">
+            <summary>
+            The last activity date time.
+            </summary>
+        </member>
+        <member name="T:RandoBot.Service.Repositories.MongoRepository">
+            <summary>
+            Base class for mongo db repositories.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Repositories.MongoRepository.Client">
+            <summary>
+            The db client.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Repositories.MongoRepository.Db">
+            <summary>
+            The db.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Repositories.MongoRepository.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:RandoBot.Service.Repositories.UserRepository"/> class.
+            </summary>
+        </member>
+        <member name="T:RandoBot.Service.Repositories.PictureRepository">
+            <summary>
+            The picture repository.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Repositories.PictureRepository.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:RandoBot.Service.Repositories.PictureRepository"/> class.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Repositories.PictureRepository.InsertAsync(System.String,System.String)">
+            <summary>
+            Inserts a new picture.
+            </summary>
+            <param name="userId">The user identity.</param>
+            <param name="originalUrl">The original URL.</param>
+        </member>
+        <member name="M:RandoBot.Service.Repositories.PictureRepository.GetRandomAsync(System.String)">
+            <summary>
+            Gets a random picture.
+            </summary>
+            <param name="userId">The user identifier.</param>
+            <returns>The URL of the picture.</returns>
+        </member>
+        <member name="M:RandoBot.Service.Repositories.PictureRepository.DeleteAsync">
+            <summary>
+            Deletes the dispatched pictures.
+            </summary>
+        </member>
+        <member name="T:RandoBot.Service.Repositories.UserRepository">
+            <summary>
+            The user repository class.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Repositories.UserRepository.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:RandoBot.Service.Repositories.UserRepository"/> class.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Repositories.UserRepository.GetAsync(System.String)">
+            <summary>
+            Get the user.
+            </summary>
+            <param name="userId">The user identifier.</param>
+            <returns>The user if found, otherwise null.</returns>
+        </member>
+        <member name="M:RandoBot.Service.Repositories.UserRepository.InsertAsync(RandoBot.Service.Models.User)">
+            <summary>
+            Insert the user into the database.
+            </summary>
+            <param name="user">The user.</param>
+        </member>
+        <member name="M:RandoBot.Service.Repositories.UserRepository.UpdateAsync(RandoBot.Service.Models.User)">
+            <summary>
+            Updates the user.
+            </summary>
+            <param name="user">The user.</param>
+        </member>
+        <member name="T:RandoBot.Service.Services.MessageProcessorService">
+            <summary>
+            The MessageProcessorService class.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Services.MessageProcessorService.#ctor(Microsoft.Extensions.Logging.ILogger{RandoBot.Service.Services.MessageProcessorService},Messenger.Client.Services.IMessengerMessageSender,RandoBot.Service.Repositories.UserRepository,RandoBot.Service.Repositories.PictureRepository,RandoBot.Service.Services.RedisService)">
+            <summary>
+            /// Initializes a new instance of the <see cref="T:RandoBot.Service.Services.Messenger.MessageHandler" /> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="messageSender">The message sender.</param>
+            <param name="userRepository">The user repository.</param>
+            <param name="pictureRepository">The picture repository.</param>
+            <param name="redisService">The redis service.</param>
+        </member>
+        <member name="P:RandoBot.Service.Services.MessageProcessorService.MessageSender">
+            <summary>
+            The sender.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Services.MessageProcessorService.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Services.MessageProcessorService.UserRepository">
+            <summary>
+            The user repository.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Services.MessageProcessorService.PictureRepository">
+            <summary>
+            The picture repository.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Services.MessageProcessorService.RedisService">
+            <summary>
+            The redis service.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Services.MessageProcessorService.ProcessMessageAsync(Messenger.Client.Objects.MessengerMessaging)">
+            <summary>
+            Processes a message;
+            </summary>
+            <param name="messageContainer"></param>
+            <returns>True if the message was processed, otherwise false.</returns>
+        </member>
+        <member name="T:RandoBot.Service.Services.RedisService">
+            <summary>
+            Redis service.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Services.RedisService.#ctor(Microsoft.Extensions.Logging.ILogger{RandoBot.Service.Services.RedisService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:RandoBot.Service.Services.RedisService"/> class.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Services.RedisService.FindOrCreateAsync``1(System.String,``0)">
+            <summary>
+            Stores a key value pair.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Services.RedisService.FindAsync``1(System.String)">
+            <summary>
+            Finds a value for a specific key.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Services.RedisService.DeleteAsync``1(System.String)">
+            <summary>
+            Deletes a value for a specific key.
+            </summary>
+        </member>
+        <member name="T:RandoBot.Service.Services.Messenger.ConversationContext">
+            <summary>
+            The conversation context.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Services.Messenger.ConversationContext.Id">
+            <summary>
+            Id property.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Services.Messenger.ConversationContext.Text">
+            <summary>
+            Random property.
+            </summary>
+        </member>
+        <member name="T:RandoBot.Service.Services.Messenger.HelpMessageHandler">
+            <summary>
+            Handles the help message.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.HelpMessageHandler.#ctor(RandoBot.Service.Services.MessageProcessorService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RandoBot.Service.Services.Messenger.HelpMessageHandler" /> class.
+            </summary>
+            <param name="processor">The message processor.</param>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.HelpMessageHandler.HandleMessageAsync(Messenger.Client.Objects.MessengerMessaging)">
+            <summary>
+            Handles the message.
+            </summary>
+            <param name="messageContainer">The message container.</param>
+            <returns>The result of the operation.</returns>
+        </member>
+        <member name="T:RandoBot.Service.Services.Messenger.ImageMessageHandler">
+            <summary>
+            Handles an image message.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.ImageMessageHandler.#ctor(RandoBot.Service.Services.MessageProcessorService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RandoBot.Service.Services.Messenger.ImageMessageHandler" /> class.
+            </summary>
+            <param name="processor">The message processor.</param>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.ImageMessageHandler.HandleMessageAsync(Messenger.Client.Objects.MessengerMessaging)">
+            <summary>
+            Handles the message.
+            </summary>
+            <param name="messageContainer">The message container.</param>
+            <returns>The result of the operation.</returns>
+        </member>
+        <member name="T:RandoBot.Service.Services.Messenger.IMessageHandler">
+            <summary>
+            The contact endpoint.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.IMessageHandler.HandleMessageAsync(Messenger.Client.Objects.MessengerMessaging)">
+            <summary>
+            Handles the message.
+            </summary>
+            <param name="messageContainer">The message container to process.</param>
+            <returns>True the message was processed otherwise false.</returns>
+        </member>
+        <member name="T:RandoBot.Service.Services.Messenger.MessageHandler">
+            <summary>
+            MessengerHandler base class.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.MessageHandler.#ctor(RandoBot.Service.Services.MessageProcessorService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RandoBot.Service.Services.Messenger.MessageHandler" /> class.
+            </summary>
+            <param name="processor">The message processor.</param>
+        </member>
+        <member name="P:RandoBot.Service.Services.Messenger.MessageHandler.Processor">
+            <summary>
+            The message processor.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.MessageHandler.SimulateTypingAsync(Messenger.Client.Objects.MessengerUser,System.Int32)">
+            <summary>
+            Simulates typing.
+            </summary>
+            <param name="recipient">The messenger user.</param>
+            <param name="duration">Duration.</param>
+            <returns>A task.</returns>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.MessageHandler.SendTextAsync(Messenger.Client.Objects.MessengerUser,System.String,System.Int32)">
+            <summary>
+            Sends text to the user.
+            </summary>
+            <param name="recipient">The messenger user.</param>
+            <param name="text">The text.</param>
+            <param name="duration">The typing duration.</param>
+            <returns>A task.</returns>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.MessageHandler.SendTextAsync(Messenger.Client.Objects.MessengerUser,System.String)">
+            <summary>
+            Sends text to the user.
+            </summary>
+            <param name="recipient">The messenger user.</param>
+            <param name="text">The text.</param>
+            <returns>A task.</returns>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.MessageHandler.SendPictureAsync(Messenger.Client.Objects.MessengerUser,System.String)">
+            <summary>
+            Sends a picture to the user.
+            </summary>
+            <param name="recipient">The messenger user.</param>
+            <param name="url">The picture url.</param>
+            <returns>A task.</returns>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.MessageHandler.SendTextWithButtonsAsync(Messenger.Client.Objects.MessengerUser,System.String,System.Collections.Generic.IEnumerable{RandoBot.Service.Services.Messenger.MessengerButtonBase})">
+            <summary>
+            Seds a button to the user.
+            </summary>
+            <param name="recipient">The messenger user.</param>
+            <param name="text">The text.</param>
+            <param name="buttons">The buttons.</param>
+            <returns>A task.</returns>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.MessageHandler.GetUserAsync(Messenger.Client.Objects.MessengerUser)">
+            <summary>
+            Gets the user.
+            </summary>
+            <param name="sender">The messenger user.</param>
+            <returns>A task.</returns>
+        </member>
+        <member name="T:RandoBot.Service.Services.Messenger.MessengerButtonBase">
+            <summary>
+            Represents a base button.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.MessengerButtonBase.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of <see ref="MessengerButtonBase" /> class.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Services.Messenger.MessengerButtonBase.Type">
+            <summary>
+            The button type.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Services.Messenger.MessengerButtonBase.Title">
+            <summary>
+            The button title.
+            </summary>
+        </member>
+        <member name="T:RandoBot.Service.Services.Messenger.MessengerChatButton">
+            <summary>
+            Represents a chat button.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.MessengerChatButton.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of <see ref="MessengerChatButton" /> class.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Services.Messenger.MessengerChatButton.Payload">
+            <summary>
+            The payload.
+            </summary>
+        </member>
+        <member name="T:RandoBot.Service.Services.Messenger.MessengerLinkButton">
+            <summary>
+            Represents a link button.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.MessengerLinkButton.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of <see ref="MessengerLinkButton" /> class.
+            </summary>
+        </member>
+        <member name="P:RandoBot.Service.Services.Messenger.MessengerLinkButton.Url">
+            <summary>
+            The link URL.
+            </summary>
+        </member>
+        <member name="T:RandoBot.Service.Services.Messenger.TextMessageHandler">
+            <summary>
+            Handles a text message.
+            </summary>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.TextMessageHandler.#ctor(RandoBot.Service.Services.MessageProcessorService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RandoBot.Service.Services.Messenger.TextMessageHandler" /> class.
+            </summary>
+            <param name="processor">The message processor.</param>
+        </member>
+        <member name="M:RandoBot.Service.Services.Messenger.TextMessageHandler.HandleMessageAsync(Messenger.Client.Objects.MessengerMessaging)">
+            <summary>
+            Handles the message.
+            </summary>
+            <param name="messageContainer">The message container.</param>
+            <returns>The result of the operation.</returns>
+        </member>
+    </members>
+</doc>

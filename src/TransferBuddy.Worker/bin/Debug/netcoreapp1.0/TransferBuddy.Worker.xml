@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TransferBuddy.Worker</name>
+    </assembly>
+    <members>
+        <member name="T:TransferBuddy.Worker.Program">
+            <summary>
+            The program class which bootstrap the applicaiton.
+            </summary>
+        </member>
+        <member name="M:TransferBuddy.Worker.Program.Main(System.String[])">
+            <summary>
+            The main entry point.
+            </summary>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="T:TransferBuddy.Worker.Repositories.MongoRepository">
+            <summary>
+            Base class for mongo db repositories.
+            </summary>
+        </member>
+        <member name="P:TransferBuddy.Worker.Repositories.MongoRepository.Client">
+            <summary>
+            The db client.
+            </summary>
+        </member>
+        <member name="P:TransferBuddy.Worker.Repositories.MongoRepository.Db">
+            <summary>
+            The db.
+            </summary>
+        </member>
+        <member name="M:TransferBuddy.Worker.Repositories.MongoRepository.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:TransferBuddy.Worker.Repositories.MongoRepository"/> class.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,39 @@
+{
+  "title": "TransferBuddy Worker",
+  "copyright": "Stubborn Snowflake",
+  "description": "TransferBuddy Worker",
+  "dependencies": {
+    "Microsoft.NETCore.App": {
+      "version": "1.0.0",
+      "type": "platform"
+    },
+    "MongoDB.Driver": "2.4.0-beta1",
+    "Newtonsoft.Json": "9.0.1",
+    "TransferWise.Client" : { "target" : "project" }
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "portable-net45+win8"
+      ]
+    }
+  },
+
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "preserveCompilationContext": true,
+    "xmlDoc": true
+  },
+
+  "runtimeOptions": {
+    "configProperties": {
+      "System.GC.Server": true
+    }
+  },
+
+  "tooling": {
+    "defaultNamespace": "TransferBuddy.Worker"
+  }
+}
