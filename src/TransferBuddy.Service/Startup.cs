@@ -54,6 +54,10 @@ namespace TransferBuddy.Service
             {
                 throw new Exception("Cannot find VERIFY_TOKEN in this env.");
             }
+ 
+            services.AddAuthentication(options => {
+                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            });
 
             services.AddMvc();
 
@@ -103,7 +107,7 @@ namespace TransferBuddy.Service
             }
 
             app.UseStaticFiles();
-/*
+ 
             app.UseCookieAuthentication(new CookieAuthenticationOptions {
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true, 
@@ -115,7 +119,7 @@ namespace TransferBuddy.Service
                 options.ClientId = "f272f4a3-ecc1-44fe-b3f4-9a20e9433f4e";
                 options.ClientSecret = "534cda42-719c-4b26-86c2-c96b7cb03437";
             });
- */
+ 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
