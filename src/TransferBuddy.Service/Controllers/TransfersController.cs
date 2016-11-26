@@ -29,12 +29,15 @@ namespace TransferBuddy.Service.Controllers
 
         private const string Profiles = "https://test-restgw.transferwise.com/v1/profiles";
 
+        private const string Accounts = "https://test-restgw.transferwise.com/v1/accounts";
+
+        static string[] currencies = new string [] { "eur", "usd", "gbp", "sek", "aud", "chf", "dkk", "jpy", "czk", "hkd", "nok", "pln", "nzd", "rub" };
+
         private string quote = "";
 
         /// <summary>
         /// Executes the transfer.
         /// </summary>
-        [Route("api/transfer")]
         public async void MakeTransfer()
         {
             if (User != null && User.Identity != null && User.Identity.IsAuthenticated)
@@ -54,8 +57,7 @@ namespace TransferBuddy.Service.Controllers
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
   
                 var payload = new 
-                {
-                    sourceAccount = sourceAccountValue,
+                { 
                     targetAccount = targetAccountValue,
                     quote = this.quote,
                     reference = referenceValue,
@@ -78,13 +80,87 @@ namespace TransferBuddy.Service.Controllers
             }
         }
 
-        public async Task<string> CreateQuote(string token, string id)
+        [Route("api/transfer")]
+        public async void CreateTransfer()
+        {
+            if (User != null && User.Identity != null && User.Identity.IsAuthenticated)
+            {  
+                var token = HttpContext.User.Claims.Where(c => c.Type == ClaimTypes.Authentication).FirstOrDefault();
+                var id = HttpContext.User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).FirstOrDefault();
+
+                var accountsResponseText = await GetAccounts(token.Value, id.Value);
+                
+                var array = new []{
+                    new { currency = string.Empty}
+                };
+
+                array = Newtonsoft.Json.JsonConvert.DeserializeAnonymousType(accountsResponseText, array);
+                dynamic returnelement = Newtonsoft.Json.JsonConvert.DeserializeObject<object[]>(accountsResponseText);
+                var sourceCurrency = array[1].currency;
+                var targetCurrency = array[0].currency;
+                var outputCurrrencies = String.Format("{0}-{1}", sourceCurrency, targetCurrency).ToString();
+  
+                var targetAccountValue = (string) returnelement[0].id;
+                if(outputCurrrencies == string.Empty || targetAccountValue == string.Empty)
+                {
+                    return;
+                }
+ 
+                this.quote = await CreateQuote(token.Value, id.Value, sourceCurrency, targetCurrency);  
+                // should be currencies = "eur-gbp";
+            
+                var payload = new 
+                {
+                    quote = this.quote,
+                    targetAccount = targetAccountValue,
+                    targetAmount = "1000",
+                     details = new {
+                        reference = outputCurrrencies
+                    }
+                }; 
+
+                var content = new System.Net.Http.StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
+
+                var httpClient = new HttpClient(); 
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+                
+                HttpResponseMessage response  = await httpClient.PostAsync(TransfersAPI, content);
+                
+                if (response.IsSuccessStatusCode)
+                { 
+                    var responsetext = await response.Content.ReadAsStringAsync();
+                    var json = Newtonsoft.Json.JsonConvert.DeserializeObject<object>(responsetext);  
+                } 
+            }
+        }
+
+        public async Task<string> GetAccounts(string token, string id)
+        { 
+            var content = new System.Net.Http.StringContent("", Encoding.UTF8, "application/json");
+
+            var httpClient = new HttpClient(); 
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            
+            HttpResponseMessage response  = await httpClient.GetAsync(Accounts);
+            if (response.IsSuccessStatusCode)
+            { 
+                var responseText = await response.Content.ReadAsStringAsync();
+                 
+                return responseText;
+            }
+            
+            return null;
+        }
+
+        public async Task<string> CreateQuote(string token, string id, string sourceValue = "EUR", string targetValue = "SEK")
         {   
             var payload = new 
             {
                 profile = id,
-                source = "EUR",
-                target = "SEK",
+                source = sourceValue,
+                target = targetValue,
                 targetAmount = "1000",
                 rateType = "FIXED"
             }; 
@@ -126,7 +202,7 @@ namespace TransferBuddy.Service.Controllers
                 ["primaryAddress"] = "1"
             }; 
            
-            var httpClient =new HttpClient(new HttpClientHandler() { UseDefaultCredentials = true });
+            var httpClient = new HttpClient(new HttpClientHandler() { UseDefaultCredentials = true });
             HttpResponseMessage response  = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, HttpContext.RequestAborted);
             var responsetext = await response.Content.ReadAsStringAsync();
         }
