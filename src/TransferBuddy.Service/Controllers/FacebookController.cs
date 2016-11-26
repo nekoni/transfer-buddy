@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using Messenger.Client.Objects;
 using TransferBuddy.Service.Services;
 
-namespace RandoBot.Service.Controllers
+namespace TransferBuddy.Service.Controllers
 {
     /// <summary>
     /// The FacebookController class.

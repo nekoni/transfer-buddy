@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace ECB.Service.Controllers
+namespace TransferBuddy.Service.Controllers
 {
     /// <summary>
     /// The home controller.
