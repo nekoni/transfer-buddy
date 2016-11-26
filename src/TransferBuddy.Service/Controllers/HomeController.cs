@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace TransferBuddy.Service.Controllers
@@ -22,16 +22,6 @@ namespace TransferBuddy.Service.Controllers
         /// </summary>
         /// <returns>A view.</returns>
         public IActionResult Error()
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// The configure endpoint.
-        /// </summary>
-        /// <returns>A view.</returns>
-        [Authorize]
-        public IActionResult Configure(string userId)
         {
             return View();
         }

@@ -62,6 +62,7 @@ namespace TransferBuddy.Service
             services.AddMvc();
 
             services.AddScoped<UserRepository, UserRepository>();
+            services.AddScoped<ConfigurationRepository, ConfigurationRepository>();
             services.AddSingleton<RedisService, RedisService>();
             services.AddSingleton<MessageProcessorService, MessageProcessorService>();
 

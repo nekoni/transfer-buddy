@@ -1,0 +1,36 @@
+@model TransferBuddy.Models.TransferConfig
+<h2>Create Configuration</h2> 
+<form asp-action="Create"> 
+<div class="form-horizontal"> 
+<div class="form-group"> 
+<label asp-for="Description" class="col-md-2 control-label"></label> 
+<div class="col-md-10"> 
+<input asp-for="Description" class="form-control" /> 
+<span asp-validation-for="Description" class="text-danger" /> 
+</div> 
+</div> 
+<div class="form-group"> 
+<label asp-for="Source" class="col-md-2 control-label"></label> 
+<div class="col-md-10"> 
+<input asp-for="Source" class="form-control" /> 
+<span asp-validation-for="Source" class="text-danger" /> </div> 
+</div> <div class="form-group"> 
+<label asp-for="Target" class="col-md-2 control-label"></label> 
+<div class="col-md-10"> 
+<input asp-for="Target" class="form-control" /> 
+<span asp-validation-for="Target" class="text-danger" /> </div> 
+</div> <div class="form-group"> 
+<label asp-for="Frequency" class="col-md-2 control-label"></label> 
+<div class="col-md-10"> 
+<input asp-for="Frequency" class="form-control" /> 
+<span asp-validation-for="Frequency" class="text-danger" /> </div> 
+</div> 
+<input type="hidden" asp-for="FacebookId" />
+<div class="form-group"> 
+<div class="col-md-offset-2 col-md-10"> 
+<input type="submit" value="Create" class="btn btn-default" /> 
+</div> 
+</div> 
+</div> 
+</form> 
+<p> <a asp-action="Index">Back to List</a> </p>

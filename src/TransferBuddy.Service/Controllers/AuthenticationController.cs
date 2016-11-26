@@ -8,11 +8,15 @@ namespace TransferBuddy.Service.Controllers
 {
     public class AuthenticationController : Controller {
         [HttpGet("~/signin")]
-        public IActionResult SignIn() => View("SignIn", HttpContext.GetExternalProviders());
+        public IActionResult SignIn([FromQuery] string ReturnUrl)
+        {
+            ViewBag.ReturnUrl = ReturnUrl;
+            return View("SignIn", HttpContext.GetExternalProviders());
+        }
 
         [HttpPost("~/signin")]
-        public IActionResult SignIn([FromForm] string provider) {
-            // Note: the "provider" parameter corresponds to the external
+        public IActionResult SignIn([FromForm] string provider, [FromForm]string ReturnUrl) {
+            // Note: the "provider" parameter corresponds to the externalßß
             // authentication provider choosen by the user agent.
             if (string.IsNullOrWhiteSpace(provider)) {
                 return BadRequest();
@@ -25,7 +29,7 @@ namespace TransferBuddy.Service.Controllers
             // Instruct the middleware corresponding to the requested external identity
             // provider to redirect the user agent to its own authorization endpoint.
             // Note: the authenticationScheme parameter must match the value configured in Startup.cs
-            return Challenge(new AuthenticationProperties { RedirectUri = "/" }, provider);
+            return Challenge(new AuthenticationProperties { RedirectUri = ReturnUrl }, provider);
         }
 
         [HttpGet("~/signout"), HttpPost("~/signout")]
