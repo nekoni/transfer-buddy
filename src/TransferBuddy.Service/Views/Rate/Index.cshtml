@@ -40,7 +40,7 @@ var dataurl = 'api/Rate/';
      $.ajax({
          url: dataurl,
          method: 'GET',
-         data: { year: 2012 },
+         data: { source: 'EUR', target : 'USD', type : 'rate' },
          dataType: 'json',
          success: function (data) {
              $.plot($("#placeholder"), data, options);
