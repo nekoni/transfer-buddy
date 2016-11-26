@@ -16,10 +16,8 @@
     "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.0",
     "Microsoft.AspNetCore.StaticFiles": "1.0.0",
-    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
     "Microsoft.Extensions.Configuration.CommandLine": "1.0.0",
-    "Microsoft.Extensions.Logging": "1.0.0",
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
@@ -29,18 +27,33 @@
     "MongoDB.Driver": "2.4.0-beta1",
     "Newtonsoft.Json": "9.0.1",
     "StackExchange.Redis": "1.1.608",
-    "TransferWise.Client" : { "target" : "project" },
-    "Messenger.Client" : { "target" : "project" },
-    "Messenger.Client.Extensions" : { "target" : "project" },
-    "WitAi": { "target" : "project" }
+    "TransferWise.Client": {
+      "target": "project"
+    },
+    "Messenger.Client": {
+      "target": "project"
+    },
+    "Messenger.Client.Extensions": {
+      "target": "project"
+    },
+    "WitAi": {
+      "target": "project"
+    },
+    "AspNet.Security.OAuth.Transferwise": {
+      "target": "project"
+    },
+    "AspNet.Security.OAuth.Extensions": "1.0.0-beta1-final",
+    "Microsoft.AspNetCore.Hosting": "1.1.0",
+    "AspNet.Security.OAuth.Validation": "1.0.0-alpha2-final",
+    "Microsoft.AspNetCore.Authentication.Cookies": "1.1.0",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.1.0",
+    "Microsoft.Extensions.Logging": "1.1.0"
   },
-
   "tools": {
     "BundlerMinifier.Core": "2.0.238",
     "Microsoft.AspNetCore.Razor.Tools": "1.0.0-preview2-final",
     "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-preview2-final"
   },
-
   "frameworks": {
     "netcoreapp1.0": {
       "imports": [
@@ -49,19 +62,16 @@
       ]
     }
   },
-
   "buildOptions": {
     "emitEntryPoint": true,
     "preserveCompilationContext": true,
     "xmlDoc": true
   },
-
   "runtimeOptions": {
     "configProperties": {
       "System.GC.Server": true
     }
   },
-
   "publishOptions": {
     "include": [
       "wwwroot",
@@ -71,13 +81,17 @@
       "web.config"
     ]
   },
-
   "scripts": {
-    "precompile": [ "dotnet bundle" ],
-    "prepublish": [ "which bower && bower cache clean && bower install" ],
-    "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
+    "precompile": [
+      "dotnet bundle"
+    ],
+    "prepublish": [
+      "which bower && bower cache clean && bower install"
+    ],
+    "postpublish": [
+      "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%"
+    ]
   },
-
   "tooling": {
     "defaultNamespace": "ECB.Service"
   }

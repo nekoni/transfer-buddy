@@ -1,6 +1,8 @@
 using System;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -52,6 +54,10 @@ namespace TransferBuddy.Service
             {
                 throw new Exception("Cannot find VERIFY_TOKEN in this env.");
             }
+ 
+            services.AddAuthentication(options => {
+                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            });
 
             services.AddMvc();
 
@@ -100,7 +106,19 @@ namespace TransferBuddy.Service
             }
 
             app.UseStaticFiles();
+ 
+            app.UseCookieAuthentication(new CookieAuthenticationOptions {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true, 
+                LoginPath = new PathString("/signin"),
+                LogoutPath = new PathString("/signout")
+            });  
 
+            app.UseTransferwiseAuthentication(options =>  {
+                options.ClientId = "f272f4a3-ecc1-44fe-b3f4-9a20e9433f4e";
+                options.ClientSecret = "534cda42-719c-4b26-86c2-c96b7cb03437";
+            });
+ 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
