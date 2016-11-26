@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
  
 namespace AspNet.Security.OAuth.Transferwise {
     /// <summary>
@@ -56,8 +57,20 @@ namespace AspNet.Security.OAuth.Transferwise {
 
             var json = await response.Content.ReadAsStringAsync();
             var array = Newtonsoft.Json.JsonConvert.DeserializeObject<object[]>(json);
-            dynamic element = array[0];
-            var idtoken = (string) element.id;
+            
+            var idtoken = default(string);
+            dynamic element;
+            if (array == null || array.Length == 0)
+            {
+                element = await CreateProfile(tokens.AccessToken);
+            }
+            else
+            {
+                element = array[0];
+                
+            }
+
+            idtoken = (string) element.id;
             var payload = new JObject(element); 
                 
             identity.AddOptionalClaim(ClaimTypes.Authentication, tokens.AccessToken, Options.ClaimsIssuer)
@@ -121,6 +134,39 @@ namespace AspNet.Security.OAuth.Transferwise {
             var payload = JObject.Parse(await response.Content.ReadAsStringAsync());
              
             return OAuthTokenResponse.Success(payload);
+        }
+
+        public async Task<object> CreateProfile(string token)
+        { 
+            var payload = new 
+            {
+                type = "personal",
+                details = 
+                new {
+                    firstName = "John",
+                    lastName = "Doe",
+                    dateOfBirth = "1983-08-06",
+                    phoneNumber = "+372111111",
+                    occupation = "student",
+                    primaryAddress  = "1"
+                }
+            }; 
+
+            var content = new System.Net.Http.StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
+
+            var httpClient = new HttpClient(); 
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            
+            HttpResponseMessage response  = await httpClient.PostAsync("https://test-restgw.transferwise.com/v1/profiles", content);
+
+            if (response.IsSuccessStatusCode)
+            { 
+                var responsetext = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<object>(responsetext);
+            }
+
+            return null;
         }
     }
 }
