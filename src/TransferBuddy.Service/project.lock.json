@@ -4038,6 +4038,14 @@
           "netcoreapp1.0/Messenger.Client.Extensions.dll": {}
         }
       },
+      "TransferWise.Client/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v1.0",
+        "dependencies": {
+          "Microsoft.NETCore.App": "1.0.0",
+          "Newtonsoft.Json": "9.0.1"
+        }
+      },
       "WitAi/0.0.1": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v1.0",
@@ -10324,6 +10332,10 @@
       "path": "../Messenger.Client.Extensions/project.json",
       "msbuildProject": "../Messenger.Client.Extensions/Messenger.Client.Extensions.xproj"
     },
+    "TransferWise.Client/1.0.0": {
+      "type": "project",
+      "path": "../TransferWise.Client/project.json"
+    },
     "WitAi/0.0.1": {
       "type": "project",
       "path": "../WitAi/project.json",
@@ -10354,6 +10366,7 @@
       "StackExchange.Redis >= 1.1.608",
       "Swashbuckle.SwaggerGen >= 6.0.0-beta901",
       "Swashbuckle.SwaggerUi >= 6.0.0-beta901",
+      "TransferWise.Client",
       "WitAi"
     ],
     ".NETCoreApp,Version=v1.0": []

@@ -5,8 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.Swagger.Model;
+using TransferBuddy.Repositories;
+using TransferBuddy.Service.Services;
 
-namespace ECB.Service
+namespace TransferBuddy.Service
 {
     /// <summary>
     /// The startup class.
@@ -38,6 +40,25 @@ namespace ECB.Service
         /// <param name="services">The services to configure.</param>
         public void ConfigureServices(IServiceCollection services)
         {
+            var pageAccessToken = Environment.GetEnvironmentVariable("PAGE_ACCESS_TOKEN");
+            if (pageAccessToken == null)
+            {
+                throw new Exception("Cannot find PAGE_ACCESS_TOKEN in this env.");
+            }
+
+            var verifyToken = Environment.GetEnvironmentVariable("VERIFY_TOKEN");
+            if (verifyToken == null)
+            {
+                throw new Exception("Cannot find VERIFY_TOKEN in this env.");
+            }
+
+            services.AddMvc();
+
+            services.AddScoped<UserRepository, UserRepository>();
+            services.AddScoped<RateRepository, RateRepository>();
+            services.AddSingleton<RedisService, RedisService>();
+            services.AddSingleton<MessageProcessorService, MessageProcessorService>();
+
             services.AddSwaggerGen(options =>
             {
                 options.SingleApiVersion(new Info

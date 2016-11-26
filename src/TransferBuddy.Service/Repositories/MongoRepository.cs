@@ -1,7 +1,7 @@
 ﻿using System;
 using MongoDB.Driver;
 
-namespace ECB.Service.Repositories
+namespace TransferBuddy.Repositories
 {
     /// <summary>
     /// Base class for mongo db repositories.

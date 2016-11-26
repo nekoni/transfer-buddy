@@ -2,7 +2,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace RandoBot.Service
+namespace TransferBuddy.Service
 {
     /// <summary>
     /// The program class which bootstrap the applicaiton.

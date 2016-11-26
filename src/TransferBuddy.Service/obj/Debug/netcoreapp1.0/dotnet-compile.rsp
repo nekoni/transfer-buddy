@@ -1,5 +1,5 @@
---temp-output:/Users/MIGA/heroku/randobot/src/RandoBot.Service/obj/Debug/netcoreapp1.0/
---out:/Users/MIGA/heroku/randobot/src/RandoBot.Service/bin/Debug/netcoreapp1.0/RandoBot.Service.dll
+--temp-output:/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/obj/Debug/netcoreapp1.0/
+--out:/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/bin/Debug/netcoreapp1.0/TransferBuddy.Service.dll
 --define:DEBUG
 --define:TRACE
 --define:NETCOREAPP1_0
@@ -9,9 +9,9 @@
 --optimize:False
 --emit-entry-point:True
 --generate-xml-documentation:True
---output-name:RandoBot.Service
---title:RandoBot Service
---description:RandoBot Service
+--output-name:TransferBuddy.Service
+--title:ECB Service
+--description:ECB Service
 --copyright:Mirko Gatto
 --file-version:1.0.0.0
 --version:1.0.0.0
@@ -210,29 +210,27 @@
 --reference:/Users/MIGA/.nuget/packages/System.Xml.ReaderWriter/4.0.11/ref/netstandard1.3/System.Xml.ReaderWriter.dll
 --reference:/Users/MIGA/.nuget/packages/System.Xml.XDocument/4.0.11/ref/netstandard1.3/System.Xml.XDocument.dll
 --reference:/Users/MIGA/.nuget/packages/System.Xml.XPath/4.0.1/ref/netstandard1.3/System.Xml.XPath.dll
---reference:/Users/MIGA/heroku/randobot/src/Messenger.Client/bin/Debug/netcoreapp1.0/Messenger.Client.dll
---reference:/Users/MIGA/heroku/randobot/src/Messenger.Client.Extensions/bin/Debug/netcoreapp1.0/Messenger.Client.Extensions.dll
---reference:/Users/MIGA/heroku/randobot/src/WitAi/bin/Debug/netcoreapp1.0/WitAi.dll
---resource:"/Users/MIGA/heroku/randobot/src/RandoBot.Service/obj/Debug/netcoreapp1.0/RandoBot.Servicedotnet-compile.deps.json",RandoBot.Service.deps.json
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Program.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/SHA1Util.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Startup.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Controllers/HomeController.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Controllers/MessengerController.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Models/Entity.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Models/Picture.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Models/User.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Repositories/MongoRepository.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Repositories/PictureRepository.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Repositories/UserRepository.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Services/MessageProcessorService.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Services/RedisService.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Services/Messenger/ConversationContext.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Services/Messenger/HelpMessageHandler.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Services/Messenger/ImageMessageHandler.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Services/Messenger/IMessageHandler.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Services/Messenger/MessageHandler.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Services/Messenger/MessengerButtonBase.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Services/Messenger/MessengerChatButton.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Services/Messenger/MessengerLinkButton.cs
-/Users/MIGA/heroku/randobot/src/RandoBot.Service/Services/Messenger/TextMessageHandler.cs
+--reference:/Users/MIGA/heroku/transfer-buddy/src/Messenger.Client/bin/Debug/netcoreapp1.0/Messenger.Client.dll
+--reference:/Users/MIGA/heroku/transfer-buddy/src/Messenger.Client.Extensions/bin/Debug/netcoreapp1.0/Messenger.Client.Extensions.dll
+--reference:/Users/MIGA/heroku/transfer-buddy/src/TransferWise.Client/bin/Debug/netcoreapp1.0/TransferWise.Client.dll
+--reference:/Users/MIGA/heroku/transfer-buddy/src/WitAi/bin/Debug/netcoreapp1.0/WitAi.dll
+--resource:"/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/obj/Debug/netcoreapp1.0/TransferBuddy.Servicedotnet-compile.deps.json",TransferBuddy.Service.deps.json
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Program.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Startup.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Controllers/HomeController.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Models/Entity.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Models/Rate.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Models/User.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Repositories/MongoRepository.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Repositories/RateRepository.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Repositories/UserRepository.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Services/MessageProcessorService.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Services/RedisService.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Services/Messenger/ConversationContext.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Services/Messenger/HelpMessageHandler.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Services/Messenger/IMessageHandler.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Services/Messenger/MessageHandler.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Services/Messenger/MessengerButtonBase.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Services/Messenger/MessengerChatButton.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Services/Messenger/MessengerLinkButton.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Services/Messenger/TextMessageHandler.cs

@@ -27,7 +27,12 @@
     "Swashbuckle.SwaggerGen": "6.0.0-beta901",
     "Swashbuckle.SwaggerUi": "6.0.0-beta901",
     "MongoDB.Driver": "2.4.0-beta1",
-    "Newtonsoft.Json": "9.0.1"
+    "Newtonsoft.Json": "9.0.1",
+    "StackExchange.Redis": "1.1.608",
+    "TransferWise.Client" : { "target" : "project" },
+    "Messenger.Client" : { "target" : "project" },
+    "Messenger.Client.Extensions" : { "target" : "project" },
+    "WitAi": { "target" : "project" }
   },
 
   "tools": {
