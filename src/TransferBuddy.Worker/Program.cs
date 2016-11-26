@@ -166,7 +166,7 @@ namespace TransferBuddy.Worker
             for (int i = 0; i < missingDays; i++)
             {
                 rates[i].Date = missingDate;
-                missingDate.AddDays(1);
+                missingDate = missingDate.AddDays(1);
                 missingRates.Add(rates[i]);
             }
 
