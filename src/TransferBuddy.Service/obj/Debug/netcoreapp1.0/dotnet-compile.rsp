@@ -217,6 +217,7 @@
 --resource:"/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/obj/Debug/netcoreapp1.0/TransferBuddy.Servicedotnet-compile.deps.json",TransferBuddy.Service.deps.json
 /Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Program.cs
 /Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Startup.cs
+/Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Controllers/FacebookController.cs
 /Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Controllers/HomeController.cs
 /Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Models/Entity.cs
 /Users/MIGA/heroku/transfer-buddy/src/TransferBuddy.Service/Models/Rate.cs

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.Swagger.Model;
+using Messenger.Client.Extensions;
 using TransferBuddy.Repositories;
 using TransferBuddy.Service.Services;
 
@@ -69,6 +70,8 @@ namespace TransferBuddy.Service
                     TermsOfService = "None"
                 });
             });
+
+            services.AddMessengerClient(pageAccessToken);
         }
 
         /// <summary>
