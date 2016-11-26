@@ -33,9 +33,9 @@ namespace TransferBuddy.Service.Services.Messenger
                 await this.SimulateTypingAsync(sender, 1000);
                 
                 var buttons = new List<MessengerButtonBase>();
-                buttons.Add(new MessengerLinkButton("Configure", "https://transfer-buddy.herokuapp.com/Home/Configure"));
+                buttons.Add(new MessengerLinkButton("Configure", $"https://transfer-buddy.herokuapp.com/Home/Configure?id={sender.userId}"));
 
-                await this.SendTextWithButtonsAsync(sender, "I didn't quite get that, I'm a still a bit silly ATM :/" , buttons);
+                await this.SendTextWithButtonsAsync(sender, "these are the command that I support atm ;)" , buttons);
 
                 return true;
             }

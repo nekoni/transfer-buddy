@@ -29,16 +29,15 @@ namespace TransferBuddy.Worker
         public static void Main(string[] args)
         {
              Console.ReadKey();
-            // Task.Run(async () =>
-            // {
-            //     await InitializeDatabase();
-            // }).Wait();
+            Task.Run(async () =>
+            {
+                await InitializeDatabase();
+            }).Wait();
 
             Task.Run(async () =>
             {
                 await FixDatabase();
             }).Wait();
-
 
             // Task.Run(async () => 
             // {
@@ -137,23 +136,30 @@ namespace TransferBuddy.Worker
                     Console.WriteLine($"{source} {target}");
                     var rates = (await client.GetRatesAsync(source, target, startDate, endDate)).ToList();
 
-                    var rep90 = new RateRepository("sma90", source, target);
-                    foreach (var rate in PatchRate(GetRate(rates, sma90, 0).ToList()))
+                    var rep = new RateRepository("rates", source, target);
+                    foreach (var rate in rates)
                     {
-                        await rep90.Add(rate);
+                        var r = new Models.Rate { Value = rate.Value, Date = rate.Time };
+                        await rep.Add(r);
                     }
 
-                    var rep4 = new RateRepository("sma4", source, target);
-                    foreach (var rate in PatchRate(GetRate(rates, sma4, 0).ToList()))
-                    {
-                        await rep4.Add(rate);
-                    }
+                    // var rep90 = new RateRepository("sma90", source, target);
+                    // foreach (var rate in PatchRate(GetRate(rates, sma90, 0).ToList()))
+                    // {
+                    //     await rep90.Add(rate);
+                    // }
 
-                    var rep14 = new RateRepository("rsi14", source, target);
-                    foreach (var rate in PatchRate(GetRsi(rates, rsi14, 0).ToList()))
-                    {
-                        await rep14.Add(rate);
-                    }
+                    // var rep4 = new RateRepository("sma4", source, target);
+                    // foreach (var rate in PatchRate(GetRate(rates, sma4, 0).ToList()))
+                    // {
+                    //     await rep4.Add(rate);
+                    // }
+
+                    // var rep14 = new RateRepository("rsi14", source, target);
+                    // foreach (var rate in PatchRate(GetRsi(rates, rsi14, 0).ToList()))
+                    // {
+                    //     await rep14.Add(rate);
+                    // }
                 }
             }
         }
@@ -193,23 +199,30 @@ namespace TransferBuddy.Worker
                     Console.WriteLine($"{source} {target}");
                     var rates = (await client.GetRatesAsync(source, target, startDate, endDate)).ToList();
 
-                    var rep90 = new RateRepository("sma90", source, target);
-                    foreach (var rate in GetRate(rates, sma90, 0).ToList())
+                    var rep = new RateRepository("rates", source, target);
+                    foreach (var rate in rates)
                     {
-                        await rep90.Add(rate);
+                        var r = new Models.Rate { Value = rate.Value, Date = rate.Time };
+                        await rep.Add(r);
                     }
 
-                    var rep4 = new RateRepository("sma4", source, target);
-                    foreach (var rate in GetRate(rates, sma4, 0).ToList())
-                    {
-                        await rep4.Add(rate);
-                    }
+                    // var rep90 = new RateRepository("sma90", source, target);
+                    // foreach (var rate in GetRate(rates, sma90, 0).ToList())
+                    // {
+                    //     await rep90.Add(rate);
+                    // }
 
-                    var rep14 = new RateRepository("rsi14", source, target);
-                    foreach (var rate in GetRsi(rates, rsi14, 0).ToList())
-                    {
-                        await rep14.Add(rate);
-                    }
+                    // var rep4 = new RateRepository("sma4", source, target);
+                    // foreach (var rate in GetRate(rates, sma4, 0).ToList())
+                    // {
+                    //     await rep4.Add(rate);
+                    // }
+
+                    // var rep14 = new RateRepository("rsi14", source, target);
+                    // foreach (var rate in GetRsi(rates, rsi14, 0).ToList())
+                    // {
+                    //     await rep14.Add(rate);
+                    // }
                 }
             }
         }

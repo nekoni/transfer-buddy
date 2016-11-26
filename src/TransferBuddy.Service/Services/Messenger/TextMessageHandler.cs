@@ -80,7 +80,6 @@ namespace TransferBuddy.Service.Services.Messenger
                                     case "Greetings":
                                         await this.SendTextAsync(sender, "Hi :)" , 1000);    
                                         break;
-                                    case "Feeling":
                                     case "Feelings":
                                         await this.SendTextAsync(sender, "I'm fine thanks! :)" , 2000);    
                                         break;

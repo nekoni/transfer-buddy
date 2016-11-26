@@ -29,7 +29,7 @@ namespace ECB.Service.Controllers
         /// The configure endpoint.
         /// </summary>
         /// <returns>A view.</returns>
-        public IActionResult Configure()
+        public IActionResult Configure(string userId)
         {
             return View();
         }

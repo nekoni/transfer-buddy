@@ -10,7 +10,7 @@
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>a14c0b12-ea9b-46f9-bc5a-3fa211387ef4</ProjectGuid>
-    <RootNamespace>RandoBot.Service</RootNamespace>
+    <RootNamespace>TransferBuddy.Service</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
   </PropertyGroup>
