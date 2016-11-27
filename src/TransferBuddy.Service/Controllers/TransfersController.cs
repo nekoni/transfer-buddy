@@ -132,13 +132,14 @@ namespace TransferBuddy.Service.Controllers
 
             return RedirectToAction("TransferSuccess");
         }
-        
 
-        [Route("api/transfer")]
+[       Route("api/transfer")]
         public async Task CreateTransfer(TransferConfig config)
         {
             if (User != null && User.Identity != null && User.Identity.IsAuthenticated)
             {  
+                await CreateDefaults();
+
                 var token = HttpContext.User.Claims.Where(c => c.Type == ClaimTypes.Authentication).FirstOrDefault();
                 var id = HttpContext.User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).FirstOrDefault();
 
@@ -156,6 +157,7 @@ namespace TransferBuddy.Service.Controllers
                 var targetCurrency = config.Target.ToLower();
                 var targetAccountValue = string.Empty;
                 array = Newtonsoft.Json.JsonConvert.DeserializeAnonymousType(accountsResponseText, array);
+
                 foreach (var item in array)
                 {
                     if (item.currency == targetCurrency)
@@ -197,6 +199,32 @@ namespace TransferBuddy.Service.Controllers
                     var responsetext = await response.Content.ReadAsStringAsync();
                     var json = Newtonsoft.Json.JsonConvert.DeserializeObject<object>(responsetext);  
                 } 
+            }
+        }
+        
+        public async Task CreateDefaults()
+        {
+            if (User != null && User.Identity != null && User.Identity.IsAuthenticated)
+            {  
+                var token = HttpContext.User.Claims.Where(c => c.Type == ClaimTypes.Authentication).FirstOrDefault();
+                var id = HttpContext.User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).FirstOrDefault();
+
+                var accountsResponseText = await GetAccounts(token.Value, id.Value);
+                
+                var array = new []{
+                    new 
+                    {   
+                        id = string.Empty, 
+                        currency = string.Empty
+                    }
+                };
+
+                array = Newtonsoft.Json.JsonConvert.DeserializeAnonymousType(accountsResponseText, array);
+
+                if (array.Length == 0)
+                {
+                    await CreateDefaultAccounts(token.Value, id.Value);
+                }
             }
         }
 
@@ -270,6 +298,108 @@ namespace TransferBuddy.Service.Controllers
             var httpClient = new HttpClient(new HttpClientHandler() { UseDefaultCredentials = true });
             HttpResponseMessage response  = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, HttpContext.RequestAborted);
             var responsetext = await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task CreateDefaultAccounts(string token, string profileId)
+        {
+            var accountId1 = await this.CreateDefaultAccount1(token, profileId);
+            var accountId2 = await this.CreateDefaultAccount2(token, profileId); 
+        }
+ 
+ 
+        public async Task<object[]> GetTransfers(string token)
+        {
+             var content = new System.Net.Http.StringContent("", Encoding.UTF8, "application/json");
+
+            var httpClient = new HttpClient(); 
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            
+            HttpResponseMessage response  = await httpClient.GetAsync(TransfersAPI);
+            if (response.IsSuccessStatusCode)
+            { 
+                var responseText = await response.Content.ReadAsStringAsync();
+                 
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<object[]>(responseText);
+            }
+            
+            return null; 
+        } 
+        
+        
+        
+        private async Task<string> CreateDefaultAccount1(string token, string profileId)
+        { 
+             var payload = new 
+            {
+                accountHolderName = "John Doe",
+                profile = profileId,
+                currency = "CZK",
+                type= "iban",
+                country = "CZ",
+                details = new {
+                  IBAN = "CZ65 0800 0000 1920 0014 5399"
+                }
+            }; 
+
+            var content = new System.Net.Http.StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
+
+            var httpClient = new HttpClient(); 
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            
+            HttpResponseMessage response  = await httpClient.PostAsync(Accounts, content);
+              
+            if (response.IsSuccessStatusCode)
+            { 
+                var responsetext = await response.Content.ReadAsStringAsync();
+                dynamic element = Newtonsoft.Json.JsonConvert.DeserializeObject<object>(responsetext);
+
+                var accountId = (string) element.id;
+
+                return accountId;
+            }
+
+            return "Error";
+        }
+
+        private async Task<string> CreateDefaultAccount2(string token, string profileId)
+        { 
+             var payload = new 
+            {
+                accountHolderName = "Euro Eero",
+                profile = profileId,
+                currency = "EUR",
+                type= "iban",
+                country = "EE",
+                details = new {
+                   legalType = "PRIVATE",
+                   IBAN = "EE382200221020145685",
+                   BIC = "EEUHEE2X",
+                   email = "euroiban@gmail.com"
+                }
+            }; 
+
+            var content = new System.Net.Http.StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
+
+            var httpClient = new HttpClient(); 
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            
+            HttpResponseMessage response  = await httpClient.PostAsync(Accounts, content);
+              
+            if (response.IsSuccessStatusCode)
+            { 
+                var responsetext = await response.Content.ReadAsStringAsync();
+                dynamic element = Newtonsoft.Json.JsonConvert.DeserializeObject<object>(responsetext);
+
+                var accountId = (string) element.id;
+
+                return accountId;
+            }
+
+
+            return "Error";
         }
     }
 }
