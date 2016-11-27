@@ -84,7 +84,7 @@ namespace TransferBuddy.Service.Services.Messenger
                                         await this.SendTextAsync(sender, "I'm fine thanks! :)" , 2000);    
                                         break;
                                     case "Identity":
-                                        await this.SendTextAsync(sender, "I'm rando bot!" , 2000);    
+                                        await this.SendTextAsync(sender, "I'm transfer buddy!" , 2000);    
                                         break;
                                     case "Configure":
                                     {
