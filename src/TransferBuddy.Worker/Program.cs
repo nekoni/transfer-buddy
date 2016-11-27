@@ -31,7 +31,7 @@ namespace TransferBuddy.Worker
         /// <param name="args">The arguments.</param>
         public static void Main(string[] args)
         {
-            //  Console.ReadKey();
+            Console.ReadKey();
             // Task.Run(async () =>
             // {
             //     await InitializeDatabase();
@@ -81,13 +81,13 @@ namespace TransferBuddy.Worker
                         var lastRate = (await client.GetRatesAsync(source, target, DateTime.Now, DateTime.Now)).FirstOrDefault();
                         var last = new Models.Rate();
                         last.Value = lastRate.Value;
-                        if (lastRate != null)
-                        {
-                            var rates = cache[key];
-                            rates.RemoveAt(rates.Count - 1);
+                        // if (lastRate != null)
+                        // {
+                        //     var rates = cache[key];
+                        //     rates.RemoveAt(rates.Count - 1);
 
-                            rates.Add(lastRate);
-                        }
+                        //     rates.Add(lastRate);
+                        // }
 
                         var updatedRates = cache[key];
                         var rate90 = GetRate(updatedRates, sma90);
@@ -112,6 +112,7 @@ namespace TransferBuddy.Worker
                     }
                 }
 
+                return;
                 System.Threading.Thread.Sleep(60000);
             }
         }
@@ -121,7 +122,7 @@ namespace TransferBuddy.Worker
             MessengerMessageSender sender = new MessengerMessageSender(new JsonMessengerSerializer());
             ConfigurationRepository repository = new ConfigurationRepository();
 
-            if (rateRsi.Value < 30)
+            //if (rateRsi.Value < 30)
             {
                 var configs = repository.Get().Result;
                 foreach (var config in configs)
@@ -140,11 +141,11 @@ namespace TransferBuddy.Worker
                         response.Attachment.Payload.Text = $"hi, we have found a good rate for your transfer: {source} to {target} is now {last.Value}. Tap the button below to do the transfer";
                         response.Attachment.Payload.Buttons = new List<MessengerButton>();
                         var linkButton = new MessengerButton();
-                        linkButton.Url = "https://transfer-buddy.herokuapp.com/Transfers/Create?configId={config.Id}";
+                        linkButton.Url = $"https://transfer-buddy.herokuapp.com/Transfers/Create?configId={config.Id}";
                         linkButton.Title = "Transfer";
                         linkButton.Type = "web_url";
                         response.Attachment.Payload.Buttons.Add(linkButton);
-                        sender.SendAsync(response, recipient);
+                        sender.SendAsync(response, recipient).Wait();
                     }
                 }
             }
