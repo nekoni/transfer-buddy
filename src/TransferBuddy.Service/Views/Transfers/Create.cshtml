@@ -1,5 +1,5 @@
 @model TransferBuddy.Models.TransferConfig
-<h2>Create Configuration</h2> 
+<h2>Execute Transfer</h2> 
 <form asp-action="Create"> 
 <div class="form-horizontal"> 
 <div class="form-group"> 
@@ -21,6 +21,12 @@
 <span asp-validation-for="Target" class="text-danger" /> </div> 
 </div> 
 <div class="form-group"> 
+<label asp-for="Account" class="col-md-2 control-label"></label> 
+<div class="col-md-10"> 
+<input asp-for="Account" class="form-control" /> 
+<span asp-validation-for="Account" class="text-danger" /> </div> 
+</div>
+<div class="form-group"> 
 <label asp-for="Amount" class="col-md-2 control-label"></label> 
 <div class="col-md-10"> 
 <input asp-for="Amount" class="form-control" /> 
@@ -35,9 +41,8 @@
 <input type="hidden" asp-for="FacebookId" />
 <div class="form-group"> 
 <div class="col-md-offset-2 col-md-10"> 
-<input type="submit" value="Create" class="btn btn-default" /> 
+<input type="submit" value="Execute" class="btn btn-default" /> 
 </div> 
 </div> 
 </div> 
 </form> 
-<p> <a asp-action="Index">Back to List</a> </p>

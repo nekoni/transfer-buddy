@@ -86,6 +86,15 @@ namespace TransferBuddy.Service.Services.Messenger
                                     case "Identity":
                                         await this.SendTextAsync(sender, "I'm rando bot!" , 2000);    
                                         break;
+                                    case "Configure":
+                                    {
+                                        var buttons = new List<MessengerButtonBase>();
+                                        buttons.Add(new MessengerLinkButton("Configure", $"https://transfer-buddy.herokuapp.com/Configuration?userId={sender.Id}"));
+
+                                        await this.SendTextWithButtonsAsync(sender, "tap the button to configure your transfers" , buttons);
+
+                                        break;
+                                    }
                                     default :
                                         await this.SendTextAsync(sender, "I didn't quite get that, I'm a still a bit silly ATM :/" , 3000);
                                         break;   

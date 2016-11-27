@@ -1,4 +1,4 @@
-namespace TransferBuddy.Worker.Models
+namespace TransferBuddy.Models
 {
     using System;
     

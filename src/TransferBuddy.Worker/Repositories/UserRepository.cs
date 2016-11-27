@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
-using TransferBuddy.Worker.Models;
+using TransferBuddy.Models;
 using MongoDB.Driver;
 
-namespace TransferBuddy.Worker.Repositories
+namespace TransferBuddy.Repositories
 {
     public class UserRepository : MongoRepository
     {

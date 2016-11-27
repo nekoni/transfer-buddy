@@ -14,10 +14,14 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using TransferBuddy.Models;
+using Microsoft.AspNetCore.Authorization;
+using Messenger.Client.Objects;
+using TransferBuddy.Repositories;
+using TransferBuddy.Service.Services;
 
 namespace TransferBuddy.Service.Controllers
 {
-
     /// <summary>
     /// The transfers controller.
     /// </summary>
@@ -34,6 +38,16 @@ namespace TransferBuddy.Service.Controllers
         static string[] currencies = new string [] { "eur", "usd", "gbp", "sek", "aud", "chf", "dkk", "jpy", "czk", "hkd", "nok", "pln", "nzd", "rub" };
 
         private string quote = "";
+
+        ConfigurationRepository repository;
+
+        MessageProcessorService messengerService;
+
+        public TransfersController(ConfigurationRepository repository, MessageProcessorService messengerService)
+        {
+            this.repository = repository;
+            this.messengerService = messengerService;
+        }
 
         /// <summary>
         /// Executes the transfer.
@@ -80,8 +94,48 @@ namespace TransferBuddy.Service.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet]
+        public IActionResult Create([FromQueryAttribute] string configId)
+        {
+            var configs = this.repository.Get().Result;
+            foreach (var config in configs)
+            {
+                if (config.Id.ToString() == configId)
+                {
+                    return View(config);
+                }
+            }
+
+            return View(null);
+        }
+
+        [Authorize]
+        [HttpGet]  
+        public IActionResult TransferSuccess()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]  
+        public IActionResult Create(TransferConfig config)
+        {
+            CreateTransfer(config).Wait();
+
+            MessengerMessage message = new MessengerMessage();
+            message.Text = "the transfer was completed successfully :)";
+            MessengerUser user = new MessengerUser();
+            user.Id = config.FacebookId;
+
+            var result = messengerService.MessageSender.SendAsync(message, user).Result;
+
+            return RedirectToAction("TransferSuccess");
+        }
+        
+
         [Route("api/transfer")]
-        public async void CreateTransfer()
+        public async Task CreateTransfer(TransferConfig config)
         {
             if (User != null && User.Identity != null && User.Identity.IsAuthenticated)
             {  
@@ -91,16 +145,27 @@ namespace TransferBuddy.Service.Controllers
                 var accountsResponseText = await GetAccounts(token.Value, id.Value);
                 
                 var array = new []{
-                    new { currency = string.Empty}
+                    new 
+                    {   
+                        id = string.Empty, 
+                        currency = string.Empty
+                    }
                 };
 
+                var sourceCurrency = config.Source.ToLower();
+                var targetCurrency = config.Target.ToLower();
+                var targetAccountValue = string.Empty;
                 array = Newtonsoft.Json.JsonConvert.DeserializeAnonymousType(accountsResponseText, array);
-                dynamic returnelement = Newtonsoft.Json.JsonConvert.DeserializeObject<object[]>(accountsResponseText);
-                var sourceCurrency = array[1].currency;
-                var targetCurrency = array[0].currency;
-                var outputCurrrencies = String.Format("{0}-{1}", sourceCurrency, targetCurrency).ToString();
-  
-                var targetAccountValue = (string) returnelement[0].id;
+                foreach (var item in array)
+                {
+                    if (item.currency == targetCurrency)
+                    {
+                        targetAccountValue = item.id;
+                        break;
+                    }
+                }
+
+                var outputCurrrencies = String.Format("{0}-{1}", sourceCurrency, targetCurrency).ToString();  
                 if(outputCurrrencies == string.Empty || targetAccountValue == string.Empty)
                 {
                     return;
@@ -113,7 +178,7 @@ namespace TransferBuddy.Service.Controllers
                 {
                     quote = this.quote,
                     targetAccount = targetAccountValue,
-                    targetAmount = "1000",
+                    targetAmount = config.Amount,
                      details = new {
                         reference = outputCurrrencies
                     }

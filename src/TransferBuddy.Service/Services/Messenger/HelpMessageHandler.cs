@@ -28,7 +28,7 @@ namespace TransferBuddy.Service.Services.Messenger
             var message = messageContainer.Message;
             var sender = messageContainer.Sender;
 
-            if (message?.Text == "help" || messageContainer?.Postback.Payload == "help")
+            if (message?.Text.ToLower() == "help" || messageContainer?.Postback.Payload.ToLower() == "help")
             {
                 await this.SimulateTypingAsync(sender, 1000);
                 

@@ -31,7 +31,7 @@ namespace TransferBuddy.Service.Controllers
         /// </summary>
         /// <returns>A view.</returns>
         [HttpPost]
-        public IActionResult Create([Bind("FacebookId, Description, Source, Target, Frequency")]TransferConfig config)
+        public IActionResult Create([Bind("FacebookId, Description, Source, Target, Frequency, Amount")]TransferConfig config)
         {
             if (ModelState.IsValid)
             {

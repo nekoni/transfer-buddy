@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using MongoDB.Driver;   
-using TransferBuddy.Worker.Models;
+using TransferBuddy.Models;
 
-namespace TransferBuddy.Worker.Repositories
+namespace TransferBuddy.Repositories
 {
     public class RateRepository : MongoRepository
     {

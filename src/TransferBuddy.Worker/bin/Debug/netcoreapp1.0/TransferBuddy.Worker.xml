@@ -15,24 +15,24 @@
             </summary>
             <param name="args">The arguments.</param>
         </member>
-        <member name="T:TransferBuddy.Worker.Repositories.MongoRepository">
+        <member name="T:TransferBuddy.Repositories.MongoRepository">
             <summary>
             Base class for mongo db repositories.
             </summary>
         </member>
-        <member name="P:TransferBuddy.Worker.Repositories.MongoRepository.Client">
+        <member name="P:TransferBuddy.Repositories.MongoRepository.Client">
             <summary>
             The db client.
             </summary>
         </member>
-        <member name="P:TransferBuddy.Worker.Repositories.MongoRepository.Db">
+        <member name="P:TransferBuddy.Repositories.MongoRepository.Db">
             <summary>
             The db.
             </summary>
         </member>
-        <member name="M:TransferBuddy.Worker.Repositories.MongoRepository.#ctor">
+        <member name="M:TransferBuddy.Repositories.MongoRepository.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:TransferBuddy.Worker.Repositories.MongoRepository"/> class.
+            Initializes a new instance of the <see cref="T:TransferBuddy.Repositories.MongoRepository"/> class.
             </summary>
         </member>
     </members>

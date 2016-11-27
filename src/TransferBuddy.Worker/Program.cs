@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TransferWise.Client;
-using TransferBuddy.Worker.Repositories;
+using TransferBuddy.Repositories;
+using Messenger.Client.Services.Impl;
+using Messenger.Client.Utilities;
+using Messenger.Client.Objects;
 
 namespace TransferBuddy.Worker
 {
@@ -18,7 +21,7 @@ namespace TransferBuddy.Worker
 
         static int sma4 = 4;
     
-        static string[] currencies = new string [] { "EUR", "USD", "GBP", "SEK", "AUD", "CHF", "DKK", "JPY", "CZK", "HKD", "NOK", "PLN", "NZD", "RUB" };
+        static string[] currencies = new string [] { "EUR", "CZK" };
 
         static TransferWiseClient client = new TransferWiseClient("https://api.transferwise.com");
 
@@ -28,21 +31,21 @@ namespace TransferBuddy.Worker
         /// <param name="args">The arguments.</param>
         public static void Main(string[] args)
         {
-             Console.ReadKey();
-            Task.Run(async () =>
-            {
-                await InitializeDatabase();
-            }).Wait();
-
-            Task.Run(async () =>
-            {
-                await FixDatabase();
-            }).Wait();
-
-            // Task.Run(async () => 
+            //  Console.ReadKey();
+            // Task.Run(async () =>
             // {
-            //     await MonitorAlert();
+            //     await InitializeDatabase();
             // }).Wait();
+
+            // Task.Run(async () =>
+            // {
+            //     await FixDatabase();
+            // }).Wait();
+
+            Task.Run(async () => 
+            {
+                await MonitorAlert();
+            }).Wait();
         }
 
         static async Task MonitorAlert()
@@ -76,6 +79,8 @@ namespace TransferBuddy.Worker
                         }
 
                         var lastRate = (await client.GetRatesAsync(source, target, DateTime.Now, DateTime.Now)).FirstOrDefault();
+                        var last = new Models.Rate();
+                        last.Value = lastRate.Value;
                         if (lastRate != null)
                         {
                             var rates = cache[key];
@@ -89,7 +94,7 @@ namespace TransferBuddy.Worker
                         var rate4 = GetRate(updatedRates, sma4);
                         var rateRsi = GetRsi(updatedRates, rsi14);
 
-                        TriggerAlerts(source, target, rate90, rate4, rateRsi);
+                        TriggerAlerts(source, target, rate90, rate4, rateRsi, last);
 
                         if (DateTime.Now.DayOfYear != day.DayOfYear)
                         {
@@ -111,9 +116,38 @@ namespace TransferBuddy.Worker
             }
         }
 
-        private static void TriggerAlerts(string source, string target, Models.Rate rate90, Models.Rate rate4, Models.Rate rateRsi)
+        private static void TriggerAlerts(string source, string target, Models.Rate rate90, Models.Rate rate4, Models.Rate rateRsi, Models.Rate last)
         {
-            // TODO
+            MessengerMessageSender sender = new MessengerMessageSender(new JsonMessengerSerializer());
+            ConfigurationRepository repository = new ConfigurationRepository();
+
+            if (rateRsi.Value < 30)
+            {
+                var configs = repository.Get().Result;
+                foreach (var config in configs)
+                {
+                    if (config.Source == source && config.Target == target)
+                    {
+                        var userId = config.FacebookId;
+                        var recipient = new MessengerUser();
+                        recipient.Id = userId;
+                        var configId = config.Id.ToString();
+                        var response = new MessengerMessage();
+                        response.Attachment = new MessengerAttachment();
+                        response.Attachment.Type = "template";
+                        response.Attachment.Payload = new MessengerPayload();
+                        response.Attachment.Payload.TemplateType = "button";
+                        response.Attachment.Payload.Text = $"hi, we have found a good rate for your transfer: {source} to {target} is now {last.Value}. Tap the button below to do the transfer";
+                        response.Attachment.Payload.Buttons = new List<MessengerButton>();
+                        var linkButton = new MessengerButton();
+                        linkButton.Url = "https://transfer-buddy.herokuapp.com/Transfers/Create?configId={config.Id}";
+                        linkButton.Title = "Transfer";
+                        linkButton.Type = "web_url";
+                        response.Attachment.Payload.Buttons.Add(linkButton);
+                        sender.SendAsync(response, recipient);
+                    }
+                }
+            }
         }
 
         static async Task FixDatabase()
